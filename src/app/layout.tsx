@@ -1,21 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+// import { PopupWidget } from "@/components/PopupWidget";
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "QionQor",
-  description: "A product by QionQor",
-  icons: "/QyronQor.jpg",
+  description: "QionQor Product",
 };
 
 export default function RootLayout({
@@ -24,11 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class">
+          <Navbar />
+          <div className="max-w-[1300px] mx-auto px-6 lg:px-12">{children}</div>
+          <Footer />
+          {/* <PopupWidget /> */}
+        </ThemeProvider>
       </body>
     </html>
   );
